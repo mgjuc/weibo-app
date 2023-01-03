@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.myblog.mangojuice.ui.home.HomeFragment"
-        android:label="@string/title_home"
+        android:label="home1"
         tools:layout="@layout/fragment_home" />
 
     <fragment
