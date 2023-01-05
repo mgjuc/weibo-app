@@ -3,10 +3,10 @@ package com.myblog.mangojuice;
 import android.app.Application;
 
 ///单例
-public class MainApplication extends Application {
-    private  static MainApplication mApp;
+public class MyApplication extends Application {
+    private  static MyApplication mApp;
 
-    public static MainApplication getInstance()
+    public static MyApplication getInstance()
     {
         return mApp;
     }

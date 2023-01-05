@@ -1,8 +1,9 @@
 package com.myblog.mangojuice.services;
 
-import com.myblog.mangojuice.MainApplication;
+import com.myblog.mangojuice.MyApplication;
 import com.myblog.mangojuice.R;
+import com.myblog.mangojuice.SysConst;
 
 public class User {
-    public static String SERVICE_URL = MainApplication.getInstance().getString(R.string.service_url);
+    static String SERVICE_URL = SysConst.REMOTE_URL +"/api/users/";
 }
