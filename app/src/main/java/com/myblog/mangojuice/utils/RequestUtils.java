@@ -19,6 +19,10 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 
+/*
+* client.newCall(request).enqueue(callback) 是异步写法
+* client.newCall(request).execute() 是同步写法
+* */
 public class RequestUtils {
 
     public static final MediaType FORM_CONTENT_TYPE = MediaType.parse("application/json;charset=utf-8");
