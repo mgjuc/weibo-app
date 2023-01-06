@@ -1,6 +1,5 @@
 package com.myblog.mangojuice.services;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
@@ -8,25 +7,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.myblog.mangojuice.MainActivity;
-import com.myblog.mangojuice.MyApplication;
 import com.myblog.mangojuice.R;
-import com.myblog.mangojuice.SysConst;
-import com.myblog.mangojuice.ui.home.HomeFragment;
 import com.myblog.mangojuice.utils.RequestUtils;
-import com.myblog.mangojuice.utils.RxUtils;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.concurrent.TimeUnit;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLSession;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.Response;
 import okio.Buffer;
 import okio.BufferedSource;

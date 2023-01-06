@@ -1,7 +1,6 @@
 package com.myblog.mangojuice.ui.home;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,16 +13,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.myblog.mangojuice.R;
 import com.myblog.mangojuice.databinding.FragmentHomeBinding;
 import com.myblog.mangojuice.services.Contentlist;
-import com.myblog.mangojuice.utils.RequestUtils;
-
-import java.io.IOException;
-import java.nio.charset.Charset;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
-import okio.Buffer;
-import okio.BufferedSource;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
