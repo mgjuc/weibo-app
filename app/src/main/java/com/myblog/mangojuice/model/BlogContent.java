@@ -5,6 +5,14 @@ public class BlogContent {
     private String time;
     private String contect;
 
+    public BlogContent() {
+    }
+
+    public BlogContent(String auther, String time, String contect) {
+        this.auther = auther;
+        this.time = time;
+        this.contect = contect;
+    }
     public String getAuther() {
         return auther;
     }

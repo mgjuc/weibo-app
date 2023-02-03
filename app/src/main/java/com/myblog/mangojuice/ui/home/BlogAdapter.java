@@ -45,7 +45,7 @@ public class BlogAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         View convertView = LayoutInflater.from(mContext).inflate(R.layout.blog_content,viewGroup,false);
         TextView text = convertView.findViewById(R.id.blog);
-        text.setText("nice");
+        text.setText(contexts.get(i).getContect());
         return convertView;
     }
 }

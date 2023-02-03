@@ -11,19 +11,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <Button
-        android:id="@+id/page"
+        android:id="@+id/pageRequest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
         android:text="request"/>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="500dp"
+        android:fillViewport="true">
         <ListView
+            android:id="@+id/blogLists"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             />
+<!--        <include-->
+<!--            android:id="@+id/emptyview"-->
+<!--            layout="@layout/empty_list_layout"/>-->
     </ScrollView>
 
     <TextView
