@@ -40,8 +40,8 @@ public class Contentlist {
                 Activity activity = (Activity) context;
                 if (activity != null && activity instanceof MainActivity) {
                     activity.runOnUiThread(() -> {
-                        TextView text = activity.findViewById(R.id.text_home);
-                        text.setText(ret);
+//                        TextView text = activity.findViewById(R.id.text_home);
+//                        text.setText(ret);
                     });
                 }
 

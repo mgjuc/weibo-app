@@ -4,49 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f6f6f6"
     tools:context=".ui.home.HomeFragment">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+
     <Button
         android:id="@+id/pageRequest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:text="request"/>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:fillViewport="true">
-        <ListView
-            android:id="@+id/blogLists"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            />
-<!--        <include-->
-<!--            android:id="@+id/emptyview"-->
-<!--            layout="@layout/empty_list_layout"/>-->
-    </ScrollView>
-
-    <TextView
-        android:id="@+id/text_home"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        android:text="未找到内容"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="request"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:fillViewport="true"
+        app:layout_constrainedHeight="false"
+        app:layout_constrainedWidth="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pageRequest">
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/blogLists"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <!--listview emptyview必须在一筱linearlayout中-->
+            <include
+                android:id="@+id/emptyview"
+                layout="@layout/empty_list_layout" />
+        </LinearLayout>
+    </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,16 +32,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+//        final TextView textView = binding.textHome;
+//        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
         final ListView blogLists = binding.blogLists;
 
-//        EmptyListLayoutBinding emptylayout = EmptyListLayoutBinding.inflate(inflater, container, false);
-//        blogLists.setEmptyView(emptylayout.getRoot());
+        //ListView.setEmptyView 设置为空时显示的页面
+        EmptyListLayoutBinding emptyview = binding.emptyview;
+        blogLists.setEmptyView(emptyview.getRoot());
 
         BlogAdapter adapter = new BlogAdapter(homeViewModel.getmContents1(), this.getActivity());
-        //homeViewModel.getmContents().observe(getViewLifecycleOwner(), updateAdapter);
         blogLists.setAdapter(adapter);
 
 
