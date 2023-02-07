@@ -16,19 +16,24 @@ import com.myblog.mangojuice.databinding.FragmentHomeBinding;
 import com.myblog.mangojuice.model.BlogContent;
 import com.myblog.mangojuice.services.ContentService;
 
+import java.util.ArrayList;
+
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private FragmentHomeBinding binding;
 
     private HomeViewModel model;
 
+    private ContentService service;
     /*
      * Fragment核心方法：生成内部view
      */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         model = new ViewModelProvider(this).get(HomeViewModel.class);
-
+//        model.getBlogs().setValue(new ArrayList<BlogContent>());
+//        model.getBlogs().getValue().add(new BlogContent("auther", "date", "hello"));
+        service = new ContentService(model);
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         final ListView blogLists = binding.blogLists;
@@ -41,6 +46,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         BlogAdapter adapter = new BlogAdapter(model.getBlogs().getValue(), this.getActivity());
         blogLists.setAdapter(adapter);
 
+        //默认加载首页
+        //service.Page(this.getActivity(),0);
+//        updateAdapter(model.getBlogs().getValue());
 
         //请求Blog按钮
         binding.pageRequest.setOnClickListener(this);
@@ -56,17 +64,21 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        //请求按钮
         if (view.getId() == R.id.pageRequest) {
-            ContentService content = new ContentService(model);
-            content.Page(this.getActivity(), 0); //把Activity传过去
+            service.Page(this.getActivity(), 0); //把Activity传过去
         }
     }
 
-    public void updateAdapter() {
+    /**
+     * 利用适配器更新内容
+     */
+    public void updateAdapter(ArrayList<BlogContent> blogs) {
         if(model.getBlogs().getValue() != null)
         {
             BlogAdapter  adapter = (BlogAdapter) binding.blogLists.getAdapter();
-            adapter.addRange(model.getBlogs().getValue());
+            //更新适配器绑定项
+            adapter.setContexts(blogs);
         }
 
     }

@@ -12,7 +12,7 @@ import com.myblog.mangojuice.model.BlogContent;
 
 import java.util.ArrayList;
 
-/*
+/**
  * Blog ListView适配器
  * */
 public class BlogAdapter extends BaseAdapter {
@@ -20,8 +20,8 @@ public class BlogAdapter extends BaseAdapter {
     private ArrayList<BlogContent> contexts;
     private Context mContext;
 
-    public BlogAdapter(ArrayList<BlogContent> contexts, Context mContext) {
-        this.contexts = contexts;
+    public BlogAdapter(ArrayList<BlogContent> blogs, Context mContext) {
+        this.contexts = blogs;
         this.mContext = mContext;
     }
 
@@ -49,13 +49,16 @@ public class BlogAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public void addRange(ArrayList<BlogContent> data)
+    /**
+    * 更新Adapter内容
+    */
+    public void setContexts(ArrayList<BlogContent> data)
     {
         if(contexts == null)
         {
             contexts = new ArrayList<>();
         }
-        contexts.addAll(data);
+        this.contexts = data;
         notifyDataSetChanged(); //adapter内置方法
     }
 }
