@@ -17,4 +17,9 @@ public class HomeViewModel extends ViewModel {
         }
         return blogs;
     }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+    }
 }

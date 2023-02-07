@@ -45,7 +45,17 @@ public class BlogAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         View convertView = LayoutInflater.from(mContext).inflate(R.layout.blog_content,viewGroup,false);
         TextView text = convertView.findViewById(R.id.blog);
-        text.setText(contexts.get(i).getContect());
+        text.setText(contexts.get(i).getContent());
         return convertView;
+    }
+
+    public void addRange(ArrayList<BlogContent> data)
+    {
+        if(contexts == null)
+        {
+            contexts = new ArrayList<>();
+        }
+        contexts.addAll(data);
+        notifyDataSetChanged(); //adapter内置方法
     }
 }

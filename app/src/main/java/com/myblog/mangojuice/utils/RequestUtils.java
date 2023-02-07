@@ -3,6 +3,8 @@ package com.myblog.mangojuice.utils;
 
 import android.content.Context;
 
+import androidx.lifecycle.ViewModel;
+
 import com.google.gson.Gson;
 import com.myblog.mangojuice.SysConst;
 

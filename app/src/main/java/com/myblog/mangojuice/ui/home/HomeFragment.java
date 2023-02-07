@@ -1,6 +1,5 @@
 package com.myblog.mangojuice.ui.home;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.myblog.mangojuice.R;
 import com.myblog.mangojuice.databinding.EmptyListLayoutBinding;
 import com.myblog.mangojuice.databinding.FragmentHomeBinding;
+import com.myblog.mangojuice.model.BlogContent;
 import com.myblog.mangojuice.services.ContentService;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
@@ -57,12 +57,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.pageRequest) {
-            ContentService content = new ContentService();
-            content.Page(this.getContext(), 0); //把Activity传过去
+            ContentService content = new ContentService(model);
+            content.Page(this.getActivity(), 0); //把Activity传过去
         }
     }
 
     public void updateAdapter() {
+        if(model.getBlogs().getValue() != null)
+        {
+            BlogAdapter  adapter = (BlogAdapter) binding.blogLists.getAdapter();
+            adapter.addRange(model.getBlogs().getValue());
+        }
 
     }
 }

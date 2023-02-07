@@ -3,15 +3,15 @@ package com.myblog.mangojuice.model;
 public class BlogContent {
     private String auther;
     private String time;
-    private String contect;
+    private String content;
 
     public BlogContent() {
     }
 
-    public BlogContent(String auther, String time, String contect) {
+    public BlogContent(String auther, String time, String content) {
         this.auther = auther;
         this.time = time;
-        this.contect = contect;
+        this.content = content;
     }
     public String getAuther() {
         return auther;
@@ -21,8 +21,8 @@ public class BlogContent {
         return time;
     }
 
-    public String getContect() {
-        return contect;
+    public String getContent() {
+        return content;
     }
 
     public void setAuther(String auther) {
@@ -33,7 +33,7 @@ public class BlogContent {
         this.time = time;
     }
 
-    public void setContect(String contect) {
-        this.contect = contect;
+    public void setContent(String content) {
+        this.content = content;
     }
 }
