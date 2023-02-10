@@ -81,7 +81,7 @@ public class ContentService {
                         HomeFragment homeFragment = (HomeFragment) fragment.getChildFragmentManager().getFragments().get(0);    //List<Fragment>顺序是加入的顺序
                         if (homeFragment != null) {
                             homeFragment.updateAdapter(blogs);  //更新页面
-                            Toast.makeText(context, "Success", Toast.LENGTH_LONG).show();
+//                            Toast.makeText(context, "Success", Toast.LENGTH_LONG).show();
                         } else {
                             Toast.makeText(context, "Filed", Toast.LENGTH_LONG).show();
                         }

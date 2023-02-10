@@ -47,7 +47,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         blogLists.setAdapter(adapter);
 
         //默认加载首页
-        //service.Page(this.getActivity(),0);
+        service.Page(this.getActivity(),0);
 //        updateAdapter(model.getBlogs().getValue());
 
         //请求Blog按钮

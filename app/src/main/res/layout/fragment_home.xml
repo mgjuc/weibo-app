@@ -41,9 +41,9 @@
 
                 <ListView
                     android:id="@+id/blogLists"
+                    android:divider="@null"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text=""/>
+                    android:layout_height="match_parent"/>
 
                 <!--listview emptyview必须在一筱linearlayout中-->
                 <include
