@@ -11,15 +11,19 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginBottom="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <!--作者-->
         <TextView
+            android:id="@+id/blog_auther"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="果酱"
             />
+        <!--时间-->
         <TextView
+            android:id="@+id/blog_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
@@ -27,9 +31,9 @@
             />
     </LinearLayout>
 
-
+    <!--内容-->
     <TextView
-        android:id="@+id/blog"
+        android:id="@+id/blog_data"
         android:lineSpacingExtra="3sp"
         android:textSize="16sp"
         android:layout_width="wrap_content"

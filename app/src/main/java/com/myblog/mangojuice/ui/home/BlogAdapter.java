@@ -10,7 +10,10 @@ import android.widget.TextView;
 import com.myblog.mangojuice.R;
 import com.myblog.mangojuice.model.BlogContent;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Blog ListView适配器
@@ -44,8 +47,19 @@ public class BlogAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         View convertView = LayoutInflater.from(mContext).inflate(R.layout.blog_content,viewGroup,false);
-        TextView text = convertView.findViewById(R.id.blog);
-        text.setText(contexts.get(i).getContent());
+        TextView data = convertView.findViewById(R.id.blog_data);
+        TextView auther = convertView.findViewById(R.id.blog_auther);
+        TextView date = convertView.findViewById(R.id.blog_date);
+        data.setText(contexts.get(i).getContent());
+        auther.setText(contexts.get(i).getAuther());
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        try {
+            Date sourcetime = formatter.parse(contexts.get(i).getTime());
+            formatter.applyPattern("yyyy年MM月dd日 HH:mm:ss");
+            date.setText(formatter.format(sourcetime));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         return convertView;
     }
 
