@@ -14,16 +14,17 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Blog ListView适配器
  * */
 public class BlogAdapter extends BaseAdapter {
 
-    private ArrayList<BlogContent> contexts;
+    private List<BlogContent> contexts;
     private Context mContext;
 
-    public BlogAdapter(ArrayList<BlogContent> blogs, Context mContext) {
+    public BlogAdapter(List<BlogContent> blogs, Context mContext) {
         this.contexts = blogs;
         this.mContext = mContext;
     }
@@ -66,7 +67,7 @@ public class BlogAdapter extends BaseAdapter {
     /**
     * 更新Adapter内容
     */
-    public void setContexts(ArrayList<BlogContent> data)
+    public void setContexts(List<BlogContent> data)
     {
         if(contexts == null)
         {

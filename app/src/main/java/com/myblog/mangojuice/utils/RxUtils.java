@@ -13,7 +13,9 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-
+/**
+ * https处理
+ */
 public class RxUtils {
 
     @SuppressLint("TrulyRandom")

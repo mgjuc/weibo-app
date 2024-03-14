@@ -17,6 +17,7 @@ import com.myblog.mangojuice.model.BlogContent;
 import com.myblog.mangojuice.services.ContentService;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
@@ -73,7 +74,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     /**
      * 利用适配器更新内容
      */
-    public void updateAdapter(ArrayList<BlogContent> blogs) {
+    public void updateAdapter(List<BlogContent> blogs) {
         if(model.getBlogs().getValue() != null)
         {
             BlogAdapter  adapter = (BlogAdapter) binding.blogLists.getAdapter();

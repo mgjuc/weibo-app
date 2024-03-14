@@ -17,14 +17,19 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.myblog.mangojuice.R;
 import com.myblog.mangojuice.model.BlogContent;
+import com.myblog.mangojuice.model.PageModel;
+import com.myblog.mangojuice.model.ResModel;
 import com.myblog.mangojuice.ui.home.HomeFragment;
 import com.myblog.mangojuice.ui.home.HomeViewModel;
 import com.myblog.mangojuice.utils.RequestUtils;
+
+import org.apache.commons.lang3.ObjectUtils;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -58,10 +63,13 @@ public class ContentService {
                 Buffer buffer = source.getBuffer();
                 String ret = buffer.clone().readString(Charset.forName("UTF-8"));
                 Log.e("contentlist_page", ret.substring(0, 100));
-                Type collectionType = new TypeToken<ArrayList<BlogContent>>() {}.getType();
-                ArrayList<BlogContent> blogs = new Gson().fromJson(ret, collectionType);
+                Type collectionType = new TypeToken<ResModel<PageModel<BlogContent>>>() {}.getType();
+                ResModel<PageModel<BlogContent>> result = new Gson().fromJson(ret, collectionType);
                 //endregion
+                List<BlogContent> blogs = result.getData().getList();
+                if(!ObjectUtils.allNotNull(blogs)) return;
 
+                //fixme 丑陋的代码
                 FragmentActivity activity = (FragmentActivity) context;
 
                 //这个model2里没有内容，不是单例

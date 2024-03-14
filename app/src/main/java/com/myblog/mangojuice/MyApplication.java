@@ -2,7 +2,9 @@ package com.myblog.mangojuice;
 
 import android.app.Application;
 
-///单例
+/**
+ * 单例
+ */
 public class MyApplication extends Application {
     private  static MyApplication mApp;
 

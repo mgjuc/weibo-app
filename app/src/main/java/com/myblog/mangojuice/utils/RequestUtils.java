@@ -160,7 +160,7 @@ public class RequestUtils {
                 .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
                 .readTimeout(TIME_OUT, TimeUnit.SECONDS)
                 .writeTimeout(TIME_OUT, TimeUnit.SECONDS)
-                .sslSocketFactory(RxUtils.createSSLSocketFactory())
+                .sslSocketFactory(RxUtils.createSSLSocketFactory(), new RxUtils.TrustAllManager())
                 .hostnameVerifier(new RxUtils.TrustAllHostnameVerifier())
                 .retryOnConnectionFailure(true).build();
         return client;
