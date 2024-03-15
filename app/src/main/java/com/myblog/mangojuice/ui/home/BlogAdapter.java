@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.myblog.mangojuice.R;
-import com.myblog.mangojuice.model.BlogContent;
+import com.myblog.mangojuice.model.Blog;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,13 +18,13 @@ import java.util.List;
 
 /**
  * Blog ListView适配器
- * */
+ */
 public class BlogAdapter extends BaseAdapter {
 
-    private List<BlogContent> contexts;
+    private List<Blog> contexts;
     private Context mContext;
 
-    public BlogAdapter(List<BlogContent> blogs, Context mContext) {
+    public BlogAdapter(List<Blog> blogs, Context mContext) {
         this.contexts = blogs;
         this.mContext = mContext;
     }
@@ -47,7 +47,7 @@ public class BlogAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        View convertView = LayoutInflater.from(mContext).inflate(R.layout.blog_content,viewGroup,false);
+        View convertView = LayoutInflater.from(mContext).inflate(R.layout.blog_content, viewGroup, false);
         TextView data = convertView.findViewById(R.id.blog_data);
         TextView auther = convertView.findViewById(R.id.blog_auther);
         TextView date = convertView.findViewById(R.id.blog_date);
@@ -65,12 +65,10 @@ public class BlogAdapter extends BaseAdapter {
     }
 
     /**
-    * 更新Adapter内容
-    */
-    public void setContexts(List<BlogContent> data)
-    {
-        if(contexts == null)
-        {
+     * 更新Adapter内容
+     */
+    public void setContexts(List<Blog> data) {
+        if (contexts == null) {
             contexts = new ArrayList<>();
         }
         this.contexts = data;

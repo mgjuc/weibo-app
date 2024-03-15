@@ -3,8 +3,6 @@ package com.myblog.mangojuice.utils;
 
 import android.content.Context;
 
-import androidx.lifecycle.ViewModel;
-
 import com.google.gson.Gson;
 import com.myblog.mangojuice.SysConst;
 
@@ -151,12 +149,8 @@ public class RequestUtils {
     private OkHttpClient GetVerifiedClient()
     {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-//        HttpLoggingInterceptor loggingInterceptor =
-//                new HttpLoggingInterceptor((message) -> Log.i("okhttp", message));
-//        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
         OkHttpClient client = builder
-                //.addInterceptor(loggingInterceptor)
-                //.addInterceptor(new DefaultHeaderInterceptor())
                 .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
                 .readTimeout(TIME_OUT, TimeUnit.SECONDS)
                 .writeTimeout(TIME_OUT, TimeUnit.SECONDS)
@@ -168,7 +162,6 @@ public class RequestUtils {
 
     /**
      * 获取登录信息
-     *
      * @param context 上下文对象
      * @return String
      */

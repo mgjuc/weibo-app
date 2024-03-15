@@ -1,14 +1,14 @@
 package com.myblog.mangojuice.model;
 
-public class BlogContent {
+public class Blog {
     private String auther;
     private String time;
     private String content;
 
-    public BlogContent() {
+    public Blog() {
     }
 
-    public BlogContent(String auther, String time, String content) {
+    public Blog(String auther, String time, String content) {
         this.auther = auther;
         this.time = time;
         this.content = content;
