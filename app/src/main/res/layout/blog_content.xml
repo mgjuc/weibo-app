@@ -1,42 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:divider="#D3D3D3"
     android:dividerPadding="0dp"
-    android:showDividers="beginning"
-    android:padding="10dp">
+    android:orientation="vertical"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:showDividers="none">
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:orientation="horizontal">
         <!--作者-->
         <TextView
             android:id="@+id/blog_auther"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="果酱"
-            />
+            android:text="果酱" />
         <!--时间-->
         <TextView
             android:id="@+id/blog_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:text="2023年2月10日 10:48"
-            />
+            android:layout_marginStart="15dp"
+            android:text="2023年2月10日 10:48" />
     </LinearLayout>
 
     <!--内容-->
     <TextView
         android:id="@+id/blog_data"
-        android:lineSpacingExtra="3sp"
-        android:textSize="16sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="hello item 1" />
+        android:lineSpacingExtra="3sp"
+        android:text="hello item 1"
+        android:textSize="16sp" />
 </LinearLayout>
