@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.myblog.mangojuice.SysConst;
+import com.myblog.mangojuice.constants.SysConst;
 import com.myblog.mangojuice.model.Blog;
 import com.myblog.mangojuice.model.PageModel;
 import com.myblog.mangojuice.model.ResModel;

@@ -4,7 +4,7 @@ package com.myblog.mangojuice.utils;
 import android.content.Context;
 
 import com.google.gson.Gson;
-import com.myblog.mangojuice.SysConst;
+import com.myblog.mangojuice.constants.SysConst;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
@@ -166,6 +166,7 @@ public class RequestUtils {
      * @return String
      */
     public String getCookie(Context context) {
+        //在SharedPreferences保存cookie登录信息
         String sessionId = SharedPrefUtils.getInstance().getStrBykey(CacheKeys.LOGIN_SESSION_Id, StringUtils.EMPTY);
         if (sessionId.equals(StringUtils.EMPTY)) {
             return StringUtils.EMPTY;
