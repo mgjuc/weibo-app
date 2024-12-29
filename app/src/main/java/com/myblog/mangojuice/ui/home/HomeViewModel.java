@@ -44,8 +44,8 @@ public class HomeViewModel extends ViewModel {
         super.onCleared();
     }
 
-    public void Page(Context context, int pageindex) {
-        RequestUtils.getInstance().getEmpty(context, SysConst.PAGE + pageindex, new Callback() {
+    public void Page(Integer pageindex) {
+        RequestUtils.getInstance().getEmpty(SysConst.PAGE + pageindex, new Callback() {
             //失败回调
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {

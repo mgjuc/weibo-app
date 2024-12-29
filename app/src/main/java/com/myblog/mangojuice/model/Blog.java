@@ -1,6 +1,8 @@
 package com.myblog.mangojuice.model;
 
 public class Blog {
+    private String id;
+    private String userid;
     private String auther;
     private String time;
     private String content;
@@ -35,5 +37,21 @@ public class Blog {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

@@ -1,7 +1,8 @@
 package com.myblog.mangojuice.utils;
 
 
-import android.content.Context;
+
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.myblog.mangojuice.constants.SysConst;
@@ -9,6 +10,7 @@ import com.myblog.mangojuice.constants.SysConst;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.CacheControl;
@@ -17,6 +19,7 @@ import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /*
 * client.newCall(request).enqueue(callback) 是异步写法
@@ -31,17 +34,18 @@ public class RequestUtils {
 
     private static RequestUtils mInstance;
 
+
     /**
      * post请求不传递参数
      *
      * @param url      请求地址
      * @param callback 执行函数
      */
-    public void postEmpty(Context context, String url, final Callback callback) {
+    public void postEmpty(String url, final Callback callback) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(splicingUrl(url)).post(okhttp3.internal.Util.EMPTY_REQUEST)
-                .addHeader("Cookie", getCookie(context))
+                .addHeader("Cookie", getCookie())
                 .cacheControl(CacheControl.FORCE_NETWORK)
                 .build();
         client.newCall(request).enqueue(callback);
@@ -53,14 +57,37 @@ public class RequestUtils {
      * @param url      请求地址
      * @param callback 执行函数
      */
-    public void getEmpty(Context context, String url, final Callback callback) {
+    public void getEmpty(String url, final Callback callback) {
         OkHttpClient client = GetVerifiedClient();
         Request request = new Request.Builder()
                 .url(splicingUrl(url)).get()
-                .addHeader("Cookie", getCookie(context))
+                .addHeader("Cookie", getCookie())
                 .cacheControl(CacheControl.FORCE_NETWORK)
                 .build();
         client.newCall(request).enqueue(callback);
+    }
+
+    /**
+     * get同步请求
+     * @param url
+     * @return
+     */
+    public String getEmpty(String url) {
+        try{
+            OkHttpClient client = GetVerifiedClient();
+            Request request = new Request.Builder()
+                    .url(splicingUrl(url)).get()
+                    .addHeader("Cookie", getCookie())
+                    .cacheControl(CacheControl.FORCE_NETWORK)
+                    .build();
+            try ( Response response = client.newCall(request).execute()){
+                return response.body().toString();
+            }
+        }
+        catch (Exception ex){
+            Log.e(this.getClass().getName(), ex.toString());
+            return null;
+        }
     }
 
     /**
@@ -88,12 +115,12 @@ public class RequestUtils {
      * @param paramJson 请求参数
      * @param callback  执行函数
      */
-    public void postForm(Context context, String url, JSONObject paramJson, final Callback callback) {
+    public void postForm(String url, JSONObject paramJson, final Callback callback) {
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = RequestBody.create(new Gson().toJson(paramJson), FORM_CONTENT_TYPE);
         Request request = new Request.Builder()
                 .url(splicingUrl(url)).post(requestBody)
-                .addHeader("Cookie", getCookie(context))
+                .addHeader("Cookie", getCookie())
                 .cacheControl(CacheControl.FORCE_NETWORK)
                 .build();
         client.newCall(request).enqueue(callback);
@@ -107,7 +134,7 @@ public class RequestUtils {
      * @param paramJson 请求参数
      * @param callback  执行函数
      */
-    public void postFormByLogin(Context context, String url, JSONObject paramJson, final Callback callback) {
+    public void postFormByLogin(String url, JSONObject paramJson, final Callback callback) {
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = RequestBody.create(new Gson().toJson(paramJson), FORM_CONTENT_TYPE);
         Request request = new Request.Builder()
@@ -162,10 +189,9 @@ public class RequestUtils {
 
     /**
      * 获取登录信息
-     * @param context 上下文对象
      * @return String
      */
-    public String getCookie(Context context) {
+    public String getCookie() {
         //在SharedPreferences保存cookie登录信息
         String sessionId = SharedPrefUtils.getInstance().getStrBykey(CacheKeys.LOGIN_SESSION_Id, StringUtils.EMPTY);
         if (sessionId.equals(StringUtils.EMPTY)) {

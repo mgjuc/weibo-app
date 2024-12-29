@@ -71,7 +71,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         });
 
         //默认加载首页
-        viewModel.Page(this.getActivity(), 0);
+        viewModel.Page(0);
 
         //请求Blog按钮
         binding.pageRequest.setOnClickListener(this);
@@ -90,7 +90,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         //请求按钮
         if (view.getId() == R.id.pageRequest) {
-            viewModel.Page(this.getActivity(), 0); //把Activity传过去
+            viewModel.Page( 0); //把Activity传过去
         }
     }
 
