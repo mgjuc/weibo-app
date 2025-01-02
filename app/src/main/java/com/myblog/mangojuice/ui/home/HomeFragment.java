@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -85,6 +86,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             }
         });
         //endregion
+
+        //添加RecyclerView自带的分割线，只对 LinearLayout 线性布局有效
+        blogLists.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
 
         //ListView.setEmptyView 设置为空时显示的页面
         EmptyListLayoutBinding emptyview = binding.emptyview;
