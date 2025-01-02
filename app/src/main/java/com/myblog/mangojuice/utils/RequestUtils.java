@@ -81,7 +81,7 @@ public class RequestUtils {
                     .cacheControl(CacheControl.FORCE_NETWORK)
                     .build();
             try ( Response response = client.newCall(request).execute()){
-                return response.body().toString();
+                return response.body().string();
             }
         }
         catch (Exception ex){

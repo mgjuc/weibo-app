@@ -9,28 +9,25 @@ import androidx.paging.PagingState;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
+import com.myblog.mangojuice.model.Blog;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class PageDataSource<T> extends ListenableFuturePagingSource<Integer, T> {
     @NonNull
-    private BlogService<T> service;
-    @NonNull
-    private String mQuery;
+    private PageService service;
     @NonNull
     private ExecutorService pool = Executors.newCachedThreadPool();
 
     private ListeningExecutorService listeningExecutor;
-    public PageDataSource(
-            @NonNull BlogService<T> service, @NonNull String query, @Nullable ListeningExecutorService listeningExecutor) {
+
+    public PageDataSource(@NonNull PageService service, @Nullable ListeningExecutorService listeningExecutor) {
         this.service = service;
-        mQuery = query;
         this.listeningExecutor = listeningExecutor;
     }
 
@@ -46,18 +43,18 @@ public class PageDataSource<T> extends ListenableFuturePagingSource<Integer, T> 
         Integer finalNextPageNumber = nextPageNumber;
 
         ListenableFuture<LoadResult<Integer, T>> pageFuture = Futures.transform(listeningExecutor.submit(() ->
-                                service.GetBlogPage(finalNextPageNumber)
-                        ),
+                        service.GetBlogPage(finalNextPageNumber, Blog.class)
+                ),
 //                        /*(Function<List<T>, LoadResult<Integer, T>>) */input -> {
 //                            input =  input == null ? new ArrayList<>() : input;
 //                            return new LoadResult.Page<>(input, finalNextPageNumber == 0 ? 0 : finalNextPageNumber - 1,
 //                            input.isEmpty() ? null : finalNextPageNumber + 1);
 //                        },
-                        input -> this.toLoadResult(input, finalNextPageNumber),
+                input -> this.toLoadResult((List<T>) input, finalNextPageNumber),
                 pool);
 
         ListenableFuture<LoadResult<Integer, T>> partialLoadResultFuture = Futures.catching(pageFuture, Exception.class,
-                        LoadResult.Error::new, pool);
+                LoadResult.Error::new, pool);
 
         return Futures.catching(partialLoadResultFuture,
                 IOException.class, LoadResult.Error::new, pool);
@@ -65,6 +62,7 @@ public class PageDataSource<T> extends ListenableFuturePagingSource<Integer, T> 
 
     /**
      * 加载
+     *
      * @param input
      * @param currentPage
      * @return

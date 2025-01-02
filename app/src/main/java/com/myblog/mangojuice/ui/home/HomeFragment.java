@@ -11,6 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.myblog.mangojuice.R;
 import com.myblog.mangojuice.databinding.EmptyListLayoutBinding;
@@ -45,36 +48,50 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        final ListView blogLists = binding.blogLists;
+        final RecyclerView blogLists = binding.blogLists;
 
         //ListView.setEmptyView 设置为空时显示的页面
         EmptyListLayoutBinding emptyview = binding.emptyview;
-        blogLists.setEmptyView(emptyview.getRoot());
+//        blogLists.setEmptyView(emptyview.getRoot());
 
         //ListView和Adapter绑定
-        BlogAdapter adapter = new BlogAdapter(mBlogs, this.getActivity());
-        blogLists.setAdapter(adapter);
-//        updateAdapter(viewModel.getBlogs().getValue());
-
-        //做数据绑定和监听
-        viewModel.getBlogs().observe(this, new Observer<List<Blog>>() {
+//        BlogAdapter adapter = new BlogAdapter(mBlogs, this.getActivity());
+        BlogPageAdapter adapter = new BlogPageAdapter(new DiffUtil.ItemCallback<Blog>() {
             @Override
-            public void onChanged(List<Blog> blogs) {
-                // update UI, data change
-                if (ObjectUtils.allNotNull(blogs)) {
-                    //mBlogs = blogs;  error =＞ 引用变了，adapter里的blogs还是空
-                    mBlogs.clear();
-                    mBlogs.addAll(blogs);
-                    adapter.notifyDataSetChanged();
-                }
+            public boolean areItemsTheSame(@NonNull Blog oldItem, @NonNull Blog newItem) {
+                return oldItem == newItem;
+            }
+
+            @Override
+            public boolean areContentsTheSame(@NonNull Blog oldItem, @NonNull Blog newItem) {
+                return oldItem.getId().equals(newItem.getId());
             }
         });
+        //必须先设置LayoutManager
+        blogLists.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        blogLists.setAdapter(adapter);
+
+        viewModel.getPaging().observe(this, dataPagingData -> adapter.submitData(getLifecycle(), dataPagingData));
+
+        //做数据绑定和监听
+//        viewModel.getBlogs().observe(this, new Observer<List<Blog>>() {
+//            @Override
+//            public void onChanged(List<Blog> blogs) {
+//                // update UI, data change
+//                if (ObjectUtils.allNotNull(blogs)) {
+//                    //mBlogs = blogs;  error =＞ 引用变了，adapter里的blogs还是空
+//                    mBlogs.clear();
+//                    mBlogs.addAll(blogs);
+//                    adapter.notifyDataSetChanged();
+//                }
+//            }
+//        });
 
         //默认加载首页
-        viewModel.Page(0);
+//        viewModel.Page(0);
 
         //请求Blog按钮
-        binding.pageRequest.setOnClickListener(this);
+//        binding.pageRequest.setOnClickListener(this);
 
         return root;
     }
@@ -97,12 +114,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     /**
      * 利用适配器更新内容
      */
-    public void updateAdapter(List<Blog> blogs) {
-        if (viewModel.getBlogs().getValue() != null) {
-            BlogAdapter adapter = (BlogAdapter) binding.blogLists.getAdapter();
-            //更新适配器绑定项
-            adapter.setContexts(blogs);
-        }
-
-    }
+//    public void updateAdapter(List<Blog> blogs) {
+//        if (viewModel.getBlogs().getValue() != null) {
+//            BlogAdapter adapter = (BlogAdapter) binding.blogLists.getAdapter();
+//            //更新适配器绑定项
+//            adapter.setContexts(blogs);
+//        }
+//
+//    }
 }
