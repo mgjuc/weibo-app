@@ -17,6 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -43,11 +44,16 @@ public class BlogPageAdapter extends PagingDataAdapter<Blog, BlogPageAdapter.Hol
         holder.date.setText(FormatTimeFromUTC(data.getTime()));
     }
 
-    private String FormatTimeFromUTC(String utcTime){
+    private String FormatTimeFromUTC(String utcTime) {
         String date = "";
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         try {
             Date sourcetime = formatter.parse(utcTime);
+            Calendar myCalendar = Calendar.getInstance();
+            myCalendar.setTime(sourcetime);
+            //加8小时
+            myCalendar.add(Calendar.HOUR, 8);
+            sourcetime = myCalendar.getTime();
             formatter.applyPattern("yyyy年MM月dd日 HH:mm:ss");
             date = formatter.format(sourcetime);
         } catch (ParseException e) {
