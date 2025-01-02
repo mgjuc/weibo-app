@@ -15,9 +15,10 @@ import java.util.List;
 
 public class PageService {
 
-    public <T> List<T> GetBlogPage(Integer pageindex, Class<T> clazz){
+    //<T> 表示是泛型方法
+    public <T> List<T> GetBlogPage(Integer pageindex, Class<T> clazz) {
         String ret = RequestUtils.getInstance().getEmpty(SysConst.PAGE + pageindex);
-        if(ret == null){
+        if (ret == null) {
             return null;
         }
         //java 是假泛型，在运行时泛型会被擦除，需要传入clazz
@@ -27,16 +28,7 @@ public class PageService {
                 TypeToken.getParameterized(PageModel.class, clazz).getType()).getType();
         ResModel<PageModel<T>> result = new Gson().fromJson(ret, collectionType);
         List<T> data = result.getData().getList();
-        Log.d("PageService", data.toString());
+        Log.d("PageService", "第" + pageindex + "页加载完成！");
         return data;
     }
-
-//    public static <T> T getObject(String gsonStr) {
-//        Gson gson = new GsonBuilder()
-//                .setLenient()
-//                .create();
-//        Type collectionType = new TypeToken<T>(){}.getType();
-//        return gson.fromJson(gsonStr,
-//                collectionType);
-//    }
 }
