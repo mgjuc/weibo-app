@@ -15,6 +15,13 @@ import com.myblog.mangojuice.model.Blog;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+/**
+ * Blog Paging3 适配器，配合 RecyclerView
+ */
 public class BlogPageAdapter extends PagingDataAdapter<Blog, BlogPageAdapter.Holder> {
 
 
@@ -33,8 +40,22 @@ public class BlogPageAdapter extends PagingDataAdapter<Blog, BlogPageAdapter.Hol
         Blog data = getItem(position);
         holder.auther.setText(data.getAuther());
         holder.content.setText(data.getContent());
-        holder.date.setText(data.getTime());
+        holder.date.setText(FormatTimeFromUTC(data.getTime()));
     }
+
+    private String FormatTimeFromUTC(String utcTime){
+        String date = "";
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        try {
+            Date sourcetime = formatter.parse(utcTime);
+            formatter.applyPattern("yyyy年MM月dd日 HH:mm:ss");
+            date = formatter.format(sourcetime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
+
 
     /**
      * 内部类实现 viewHolder

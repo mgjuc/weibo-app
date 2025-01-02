@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.myblog.mangojuice.R;
 import com.myblog.mangojuice.databinding.EmptyListLayoutBinding;
 import com.myblog.mangojuice.databinding.FragmentHomeBinding;
@@ -49,6 +50,41 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         final RecyclerView blogLists = binding.blogLists;
+
+        //region 添加悬浮返回顶部
+        final FloatingActionButton returnTop = binding.topfab;
+        blogLists.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull final RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                //获得recyclerView的线性布局管理器
+                LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                //获取到第一个item的显示的下标  不等于0表示第一个item处于不可见状态 说明列表没有滑动到顶部 显示回到顶部按钮
+                int firstVisibleItemPosition = manager.findFirstVisibleItemPosition();
+                // 当不滚动时
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    // 判断是否滚动超过一屏
+                    if (firstVisibleItemPosition == 0) {
+                        returnTop.hide();
+                    } else {
+                        //显示回到顶部按钮
+                        returnTop.show();
+                        returnTop.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                recyclerView.scrollToPosition(0);
+                                returnTop.hide();
+                            }
+                        });
+
+                    }//获取RecyclerView滑动时候的状态
+                }
+//                else if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {//拖动中
+//                    returnTop.hide();
+//                }
+            }
+        });
+        //endregion
 
         //ListView.setEmptyView 设置为空时显示的页面
         EmptyListLayoutBinding emptyview = binding.emptyview;
